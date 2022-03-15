@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8"> 
+<meta http-equiv="encoding" content="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta content="width=device-width, initial-scale=1" name="viewport" id="viewport" runat="server" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/css/intro.css?v=100" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js"></script>
+<link rel="icon" href="/favicon/favicon-16x16.png" />
+<link rel="shortcut icon" href="/favicon/favicon-16x16.png" />
+<title>AstarNetwork Web3 Domains (.astr)</title>
+<meta name="description" content="First Astar Web3 Domains - Get your favorite .astr domain and create your identity profile.">
+<style>
+#DateCountdown{font-size: 40px; margin-top: 30px; margin-bottom: 20px;}
+#DateCountdown div {display: inline-block; margin: 10px; text-align: center; padding:20px; background: #FFF; border-radius: 10px; color: blueviolet;}
+#DateCountdown span {display: block; text-align: center; font-size: 15px;}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".preeloader").fadeOut(1500);
+		$("#DateCountdown").countdown("2022-03-15 12:00:00 UTC", function(event) {
+			$(this).html(
+			  event.strftime('<div>%D <span>days</span></div><div>%H <span>hours</span></div><div>%M <span>minutes</span></div><div>%S <span>seconds</span></div>')
+			);
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="preeloader">
+		<div class="preloader-spinner">
+			<img src="/images/loading.svg" alt="">
+		</div>
+	</div>
+	<div id="coming-soon" style="background-image:url(/images/hero-image.jpg);">
+		<div class="coming-body text-center">
+			<div class="container">
+				<div class="coming-logo" style="margin-bottom:30px;"><img src="/logo/logo_cic.png" style="max-width:210px;margin:0 auto;"/></div>
+				<h1 class="coming-soon-title-big">AstarNetwork Web3 Domains (.astr) Coming soon</h1>
+				<div class="note-date">March 15 2022 - 12:00 UTC</div>
+				<div id="DateCountdown" data-date="2022-03-15 00:00:00"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
