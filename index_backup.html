@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8"> 
+<meta http-equiv="encoding" content="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta content="width=device-width, initial-scale=1" name="viewport" id="viewport" runat="server" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"/>
+<meta property="og:image" itemprop="image" content="/images/tlosdomains.jpg">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lobibox@1.2.7/css/lobibox.css" />
+<link type="text/css" rel="stylesheet" href="/fonts/Fontawesome-pro/css/fontawesome.min.css" />
+<link type="text/css" rel="stylesheet" href="/fonts/Fontawesome-pro/css/all.css" />
+<link type="text/css" rel="stylesheet" href="/fonts/Poppins/fonts.css" />
+<link type="text/css" rel="stylesheet" href="/fonts/Roboto/fonts.css" />
+<link type="text/css" rel="stylesheet" href="/lib/jQuery/PluginStack/Wow-js/animate.css" />
+<link type="text/css" rel="stylesheet" href="/css/custom.css?v=102" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/3.0.0-rc.5/web3.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lobibox@1.2.7/js/lobibox.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootbox@5.5.2/bootbox.all.min.js"></script>
+<script type="text/javascript" src="/lib/jQuery/PluginStack/Wow-js/wow.min.js"></script>
+<script type="text/javascript" src="/js/custom.js?v=4"></script>
+<link rel="icon" href="/favicon/favicon-32x32.png?v=3" />
+<link rel="shortcut icon" href="/favicon/favicon-32x32.png?v=3" />
+<meta name="description" property="description" content="First Telos Name Service - Get your favorite .tlos domain and create your identity profile." />
+<title>Telos Name Service (.tlos) - Your Perfect Blockchain Identity</title>
+</head>
+<body>
+<div class="warp-header" id="home">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2 col-sm-2 col-xs-12">
+				<div class="logo">
+					<a href="/"><img src="/logo/logo_cic.png?v=3"/></a>
+				</div>
+			</div>
+			<div class="col-md-10 col-sm-10 col-xs-12 text-mg-right">
+				<div class="menu">
+					<div class="menu-close"><i class="fal fa-times-circle"></i></div>
+					<ul class="nav">
+						<li class="nav-item active"><a data-id="#home" href="/">Home</a></li>
+						<li class="nav-item"><a href="#register">Register Domain</a></li>
+						<li class="nav-item"><a data-id="#features" href="#">Features</a></li>
+						<li class="nav-item"><a data-id="#faq" href="#">FAQ</a></li>
+					</ul>
+					<div class="menu-btn">
+						<a class="btn btn-medium btn-custom btn-bg" href="#">
+							Connect Wallet
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="menu-overlay"></div>
+		</div>
+	</div>
+	<div class="click-menu">
+		<i class="fal fa-bars"></i>
+	</div>
+</div>
+<div class="warp-banner">
+	<div class="banner-img-animation animation-01">
+		<img src="/images/b-shape4.png"/>
+	</div>
+	<div class="banner-img-animation animation-02">
+		<img src="/images/b-shape3.png"/>
+	</div>
+	<div class="banner-img-animation animation-03">
+		<img src="/images/b-shape2.png"/>
+	</div>
+	<div class="banner-fix">
+		<div class="container">
+			<h1 class="banner-title title-color">Telos Name Service (.tlos)</h1>
+			<div class="banner-title title-small">Your Perfect Blockchain Identity</div>
+			<div class="banner-des">Get your favorite .tlos domain and create your identity profile</div>
+			<div class="form-search input-group hidden" style="display:none;">
+				<input type="text" class="form-control form-control-lg txtdomain" placeholder="Search name or address"/>
+				<div class="input-group-append">
+					<span class="btn btn-default btn-success btn-outline-secondary btn-search" style="cursor:pointer;"><i class="far fa-search"></i> Search</span>
+				</div>
+			</div>
+			<a class="btn btn-custom btn-big" href="#">
+				Launch App
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="warp-section">
+	<div class="container">
+		<div class="row domain-function align-items-center">
+			<div class="function-items col-md-6 col-sm-6 col-xs-12 wow fadeInLeft">
+				<img src="/images/s_ab1.png"/>
+			</div>
+			<div class="function-items col-md-6 col-sm-6 col-xs-12 wow fadeInRight">
+				<div class="function-title title-basic">Replace crypto addresses with your name</div>
+				<div class="function-des des-basic">To send crypto, all you need to know is the recipient's NFT domain. Send any other crypto with just one domain. No more worrying about sending to the wrong address.</div>
+			</div>
+		</div>
+		<div class="row domain-function align-items-center">
+			<div class="function-items col-md-6 col-sm-6 col-xs-12 col-md-push-6 wow fadeInRight">
+				<img src="/images/s_ab2.png"/>
+			</div>
+			<div class="function-items col-md-6 col-sm-6 col-xs-12 col-md-pull-6 wow fadeInLeft">
+				<div class="function-title title-basic">One-time registration fee, No renewal fees</div>
+				<div class="function-des des-basic">The NFT domain is not leased. Buy a domain with a one-time registration fee and never have to worry about renewal again. Domains are stored in your wallet, just like cryptocurrency. Only you can control it.</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="warp-section bg-gray">
+	<div class="container">
+		<div class="section-top">
+			<h3 class="section-title text-center">Ecosytem</h3>
+		</div>
+		<div class="warp-eco row wow fadeInUp">
+			<div class="eco-items col-md-4 col-sm-4 col-xs-12">
+				<div class="eco-body">
+					<div class="eco-icon">
+						<i class="fal fa-user-astronaut"></i>
+					</div>
+					<div class="eco-text">
+						<div class="eco-name">
+							NFT Avatar
+						</div>
+						<div class="eco-des">
+							Easily set your picture as your avatar. Show anywhere supported NFT Avatar
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="eco-items col-md-4 col-sm-4 col-xs-12">
+				<div class="eco-body">
+					<div class="eco-icon">
+						<i class="fal fa-id-card-alt"></i>
+					</div>
+					<div class="eco-text">
+						<div class="eco-name">
+							Profile Page
+						</div>
+						<div class="eco-des">
+							Use your landing page to display your favorite content & multi social channel
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="eco-items col-md-4 col-sm-4 col-xs-12">
+				<div class="eco-body">
+					<div class="eco-icon">
+						<i class="fal fa-chart-network"></i>
+					</div>
+					<div class="eco-text">
+						<div class="eco-name">
+							SubDomain
+						</div>
+						<div class="eco-des">
+							Unlimited Subdomains as long as you own the main domain name
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="eco-items col-md-4 col-sm-4 col-xs-12">
+				<div class="eco-body">
+					<div class="eco-icon">
+						<i class="fal fa-database"></i>
+					</div>
+					<div class="eco-text">
+						<div class="eco-name">
+							Custom Data
+						</div>
+						<div class="eco-des">
+							Store a variety of custom data records that can be expanded later.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="eco-items col-md-4 col-sm-4 col-xs-12">
+				<div class="eco-body">
+					<div class="eco-icon">
+						<i class="far fa-cubes"></i>
+					</div>
+					<div class="eco-text">
+						<div class="eco-name">
+							SDK & API
+						</div>
+						<div class="eco-des">
+							SDK integrates with third-party platforms like wallets, dapps, defi ...
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="eco-items col-md-4 col-sm-4 col-xs-12">
+				<div class="eco-body">
+					<div class="eco-icon">
+						<i class="fal fa-link"></i>
+					</div>
+					<div class="eco-text">
+						<div class="eco-name">
+							Cross Chain
+						</div>
+						<div class="eco-des">
+							Support transfer NFT Domains between different blockchain platforms.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="eco-items col-md-4 col-sm-4 col-xs-12">
+				<div class="eco-body">
+					<div class="eco-icon">
+						<i class="fal fa-globe-asia"></i>
+					</div>
+					<div class="eco-text">
+						<div class="eco-name">
+							Decentralized Website
+						</div>
+						<div class="eco-des">
+							Upload your website to IPFS and access it with your NFT Domains
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="eco-items col-md-4 col-sm-4 col-xs-12">
+				<div class="eco-body">
+					<div class="eco-icon">
+						<i class="fal fa-globe"></i>
+					</div>
+					<div class="eco-text">
+						<div class="eco-name">
+							Many Top Level Domain
+						</div>
+						<div class="eco-des">
+							Manage multiple TLDs on one Smart Contract, helping to expand NFT Domains later.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="warp-section">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft">
+				<div class="integrate-text">
+					<div class="section-title">NFT Domains integration</div>
+					<div class="section-des">
+						<p>Integrate the NFT Domains into your project to make your DAPP and Web3.0 websites more user-friendly and provide a better user experience. This will make your decentralized application more differentiated.</p>
+						<p>If you are an AstarNetwork platform that wants to claim your .astr domain name: Click and fill this form</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<div class="warp-integrate">
+					<div class="integrate-items wow fadeInUp" data-wow-delay="0.3s">
+						<div class="integrate-body">
+							<div class="integrate-icon"><i class="fas fa-user"></i></div>
+							<div class="integrate-number"><div>10</div><span>k</span></div>
+							<div class="integrate-text">Domains</div>
+						</div>
+					</div>
+					<div class="integrate-items wow fadeInUp" data-wow-delay="0.6s">
+						<div class="integrate-body">
+							<div class="integrate-icon"><i class="fas fa-dice-d20"></i></div>
+							<div class="integrate-number"><div>30</div></div>
+							<div class="integrate-text">Ecosystem</div>
+						</div>
+					</div>
+					<div class="integrate-items wow fadeInUp" data-wow-delay="0.9s">
+						<div class="integrate-body">
+							<div class="integrate-icon"><i class="fas fa-users"></i></div>
+							<div class="integrate-number"><div>39</div><span>k</span></div>
+							<div class="integrate-text">Users</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="warp-section bg-gray">
+	<div class="container">
+		<div class="section-top">
+			<h3 class="section-title text-center">Roadmap</h3>
+		</div>
+		<div class="warp-roadmap row">
+			<div class="roadmap-items col-md-3 col-sm-3 col-xs-12 wow fadeInUp">
+				<div class="roadmap-body">
+					<div class="roadmap-left">
+						<div class="roadmap-check"><i class="fal fa-check"></i></div>
+					</div>
+					<div class="roadmap-right">
+						<div class="roadmap-title">Q1/2022</div>
+						<div class="roadmap-des">
+							<ul>
+								<li>Launch new website & build community</li>
+								<li>Deploy Smart Contract on Astar Mainnet</li>
+								<li>Open Pre-sale and Public Sale</li>
+								<li>Join Astar & Shiden Builders Program</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="roadmap-items col-md-3 col-sm-3 col-xs-12 wow fadeInUp">
+				<div class="roadmap-body">
+					<div class="roadmap-left">
+						<div class="roadmap-check"><i class="fal fa-check"></i></div>
+					</div>
+					<div class="roadmap-right">
+						<div class="roadmap-title">Q2/2022</div>
+						<div class="roadmap-des">
+							<ul>
+								<li>Listing on TofuNft.com makerplace</li>
+								<li>Build SDK integrates for third-party platforms</li>
+								<li>Launch new website with many functions: NFT Avatar, Profile Page, SubDomain ...</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="roadmap-items col-md-3 col-sm-3 col-xs-12 wow fadeInUp">
+				<div class="roadmap-body">
+					<div class="roadmap-left">
+						<div class="roadmap-check"><i class="fal fa-check"></i></div>
+					</div>
+					<div class="roadmap-right">
+						<div class="roadmap-title">Q3/2022</div>
+						<div class="roadmap-des">
+							<ul>
+								<li>Deploy Smart Contract V2 with many update</li>
+								<li>Build Astar Web3 Domains DAO's Governance: Poll, Forum</li>
+								<li>$AWD Token Airdrop for Holder</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="roadmap-items col-md-3 col-sm-3 col-xs-12 wow fadeInUp">
+				<div class="roadmap-body">
+					<div class="roadmap-left">
+						<div class="roadmap-check"><i class="fal fa-check"></i></div>
+					</div>
+					<div class="roadmap-right">
+						<div class="roadmap-title">Q4/2022</div>
+						<div class="roadmap-des">
+							<ul>
+								<li>Stake & Farm $AWD Programs</li>
+								<li>Listing $AWD to Exchanges </li>
+								<li>Support Cross Chain: Moonbeam & Moonriver</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="warp-section">
+	<div class="container">
+		<div class="section-top">
+			<h3 class="section-title text-center">FAQ</h3>
+		</div>
+		<div class="warp-faqs wow fadeInUp">
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<div class="faqs-items">
+					<div class="faqs-title">01. What is blockchain domains?</div>
+					<div class="faqs-des">
+						A blockchain domain is an asset class on the blockchain. Blockchain domains are designed to resolve your web address and wallet using smart contracts. This is a useful step in your crypto journey.
+					</div>
+				</div>
+				<div class="faqs-items">
+					<div class="faqs-title">02. Can I transfer my blockchain domains?</div>
+					<div class="faqs-des">It's correct. The domains in the blockchain are ERC721 compliant NFTs, you can transfer it using an ERC721 enabled wallet.</div>
+				</div>
+				<div class="faqs-items">
+					<div class="faqs-title">03. Does Tlos Domains blockchain domains compatible with ICANN traditional domains?</div>
+					<div class="faqs-des">No. Tlos Domains blockchain domains are built using blockchain technology, It can help you to launch distributed web which traditional domains cannot do.</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<div class="faqs-items">
+					<div class="faqs-title">04. How to connect metamask wallet and transfer ASTR?</div>
+					<div class="faqs-des">Connect Metamask: <a target='_blank' href='https://docs.tlos.network/integration/network-details'>Click to see</a><br/>How to send ASTR/SDN from Polkadot.js to MetaMask: <a target='_blank' href='https://docs.tlos.network/tutorial/how-to-send-astr-sdn-from-polkadot.js-to-metamask'>Click to see</a></div>
+				</div>
+				<div class="faqs-items">
+					<div class="faqs-title">05. Can Tlos Domains be traded on NFT exchange?</div>
+					<div class="faqs-des">Yes, Tlos Domains may be traded on NFT marketplaces tofunft.com in the soon</div>
+				</div>
+				<div class="faqs-items">
+					<div class="faqs-title">06. How much does it cost to register?</div>
+					<div class="faqs-des">Currently, subscription costs are set at the following rate: <br/>5 characters or more <br/>4 characters<br/>3 characters<br/> 2 characters<br/> The characters 2 and 3 and 4 are priced as 'premium' to reflect the small number of these names available.</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="warp-section bg-gray">
+	<div class="container text-center">
+		<div class="width-fix">
+			<h3 class="control-title wow fadeInUp">NFT Domains Journey into the world of Web3 - the next era of the internet</h3>
+			<div class="control-des text-center wow fadeInUp">
+				Common usernames across apps and websites, payment addresses for wallets and more. Manage all your distributed services easily and securely
+			</div>
+			<a class="btn btn-custom btn-big wow fadeInUp" href="#">
+				Launch App
+			</a>
+		</div>
+	</div>
+</div>
+<div class="warp-footer bg-gray">
+	<div class="container text-center">
+		<div class="warp-social">
+			<a class="social-twiter" href="https://twitter.com/tlos_domains" target="_blank" class="wow fadeInUp"><i class="fab fa-twitter"></i></a>
+			<a class="social-github" href="https://github.com/TlosDomains/" target="_blank" class="wow fadeInUp"><i class="fab fa-github-alt"></i></a>
+			<a class="social-discord" href="#" class="wow fadeInUp"><i class="fab fa-discord"></i></a>
+		</div>
+		<a href='mailto:info@tlosdomains.network'>info@tlosdomains.network</a> or <a href='mailto:tlosdomains@gmail.com'>tlosdomains@gmail.com</a>
+	</div>
+	<div class="warp-copyright">
+		<div class="container text-center">
+			Copyright © 2022 Tlos Domains. All Rights Reserved
+		</div>
+	</div>
+</div>
+</body>
+</html>
