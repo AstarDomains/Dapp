@@ -22,16 +22,17 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/paginationjs@2.1.5/dist/pagination.js"></script>
 <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@multiavatar/multiavatar/multiavatar.min.js"></script>
 <script type="text/javascript" src="/lib/jQuery/PluginStack/Wow-js/wow.min.js?v=1"></script>
 <script type="text/javascript" src="/js/morphext.min.js?v=1"></script>
 <script type="text/javascript" src="/js/particles.js?v=1"></script>
 <script type="text/javascript" src="/js/custom.js?v=200"></script>
-<script type="text/javascript" src="/networks.js?v=2200"></script>
+<script type="text/javascript" src="/networks.js?v=3200"></script>
 <script type="text/javascript" src="/contract/abi.js?v=1"></script>
 <link rel="icon" href="/favicon/favicon-32x32.png" />
 <link rel="shortcut icon" href="/favicon/favicon-32x32.png" />
 <meta name="description" property="description" content="First Astar Web3 Domains - Get your favorite .astr domain and create your identity profile." />
-<title>Astar Web3 Domains (.astr) - Your Perfect NFT Domains</title>
+<title>Astar Web3 Domains (.astr)</title>
 <script type="text/javascript">
 </script>
 <style>
@@ -43,6 +44,7 @@ body{
 }
 .warp-search{
 	margin: 0 auto;
+	max-width: 1000px;
 }
 .warp-result .text-success{
 	color: #007bff!important;
@@ -435,6 +437,75 @@ div[data-notify="container"] {
 	z-index: 9999;
 }
 
+.to_reverse {
+	margin-bottom: 10px;
+	border: 1px solid #DDD;
+	padding: 5px;
+}
+.nftpreview {
+	padding: 10px;
+	border: 1px solid #DDD;
+	border-radius: 5px;
+}
+.nftpreview img {
+	width: 100px;
+	margin-right: 7px;
+}
+
+.nftpreview span {
+	font-weight: bold
+}
+
+.wallet-ui .modal-content {
+        background: #FFF;
+        box-shadow: 0 8px 20px rgb(0 0 0 / 60%);
+    }
+	
+.wallet-ui .modal-dialog {
+        width: 600px;
+		height: 350px;
+        font-size: 12px;
+    }
+
+    .wallet-ui .list-group {
+        margin: 20px 0 20px 0;
+        padding: 0;
+        width: 100%;
+        display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		list-style: none;
+    }
+
+    .wallet-ui .wallet-adapter-item {
+        border: 1px solid #DDD;
+        border-radius: 6px;
+        color: #000;
+        cursor: pointer;
+        align-items: center;
+        padding: 30px;
+        margin-right: 10px;
+		margin-bottom: 7px;
+    }
+	.wallet-ui .wallet-adapter-item:last-child {
+		margin-right: 0px;
+	}
+
+        .wallet-ui .wallet-adapter-item:hover {
+            background-image: linear-gradient(rgba(0,0,0,.15) 0 0);
+        }
+
+        .wallet-ui .wallet-adapter-item span {
+			display: block;
+			margin-top: 10px;
+			color: #666;
+        }
+
+
+        .wallet-ui .wallet-adapter-item img {
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+        }
 </style>
 </head>
 <body>
@@ -508,7 +579,6 @@ div[data-notify="container"] {
 					    </div>
 						<div class='small' style="display: block; color: #FFF; margin-top: 20px;">You can use the "-" character in domain name, like this: my-name.astr, astar-network.astr</diV>
 				</div>
-			
 			</div>
 		</div>
 		<div class="warp-result">
@@ -605,14 +675,28 @@ div[data-notify="container"] {
 	var clickenble = true;
 	
 	var isConnection = false;
+	
+	var connector;
+	
+	var adapter;
 
 	window.addEventListener('load', async () => {
 		//await connect();
     });
 	
 	$(document).on('click', '.btn-connect-wallet', async() => {
-		await connect();
+		await selectWallet();
     });
+	
+	$(document).on('click', '.wallet-adapter-item', async function () {
+		var _adapter = $(this).attr('data-adapter');
+		if (_adapter != '') {
+			adapter = _adapter;
+			await connect();
+			//dialog.modal('hide');
+			bootbox.hideAll();
+		}
+	});
 	
 
 	$(document).on('keyup', '.txtdomain', function(){
@@ -670,22 +754,12 @@ div[data-notify="container"] {
     });
 	
 	const disconnect =  async () => {
-		if (!window.ethereum) {
-			notify('alert-danger', '<span class="text-danger">No Metamask (or other Web3 Provider) installed</span>');
-			return;
-		}
-		//ethereum.on('disconnect', handler: (error: ProviderRpcError) => void);
-		
-		const walletAddress = await window.ethereum.request({
-		  method: "eth_requestAccounts",
-		  params: [
-			{
-			  eth_accounts: {}
-			}
-		  ]
-		});
-		
+		if (connector) {
+			await connector.disconnect();
+		};
+			
 		location.reload();
+		
 		
 		$('.btn-connect-wallet').text('Connect Wallet');
 		
@@ -701,15 +775,38 @@ div[data-notify="container"] {
 
 	};
 	
-	const connect =  async () => {
-		if (!window.ethereum) {
-			notify('alert-danger', '<span class="text-danger">No Metamask (or other Web3 Provider) installed</span>');
-			return;
-		}
+	const selectWallet = async() => 
+	{
+		var metamask = "/logo/metamask.svg?v=1";
+		var nabox = "/logo/nabox.svg?v=4";
 		
+		var argAdapterName = ['Nabox Wallet Plugin', 'Metamask & web3js support'];
+		var argAdapter = ['nabox', 'metamask'];
+		var argAdapterIcon = [nabox, metamask];
+		
+		var item = '';
+		var item = '';
+		$.each(argAdapter, function (i, adapter) {
+			item += "<li class='wallet-adapter-item text-center' data-adapter='" + adapter.toLowerCase() + "'><img src='" + argAdapterIcon[i] + "?v=1' /><span style='font-size: 11px;' class='wallet-adapter-item-name'>" + argAdapterName[i] + "</span></li>";
+		});
+		var tmp = "<div class='select-wallet'>";
+		tmp += "<h3>Connect Wallet</h3>";
+		tmp += "<ul class='list-group'>" + item + "</ul>";
+		tmp += "</div>";
+		var dialog = bootbox.dialog({
+			message: tmp,
+			closeButton: true,
+			className: 'wallet-ui',
+			size: 'lg'
+		});
+	}
+	
+	const connect =  async () => {
 		if (isConnection == true){
 			return;
 		}
+		
+		notify('alert-info', '<span class="text-info"><i class="fas fa-circle-notch fa-spin"></i> Connecting</span>');
 		
 		$('.tld').text('');
 		
@@ -719,20 +816,51 @@ div[data-notify="container"] {
 		
 		$('.btn-connect-wallet').attr('disabled', true);
 		
-		window.web3 = new Web3(ethereum);
+		var chainId = 592;
+		
+		if (adapter == 'metamask')
+		{
+			web3 = new Web3(ethereum);
+
+			window.ethereum.on('chainChanged', () => {
+				document.location.reload();
+			});
+				  
+			window.ethereum.on('accountsChanged', () => {
+				 document.location.reload();
+			});
+			
+			chainId = await web3.eth.net.getId();
+			
+			await web3.eth.requestAccounts();
+		}
+		
+		if (adapter == 'nabox'){
+			web3 = new Web3(window.NaboxWallet);
+			await web3.eth.requestAccounts();
+		}
+		
+		if (adapter == 'walletconnect'){
+			var WalletConnectProvider = window.WalletConnectProvider.default;
+			connector = new WalletConnectProvider({
+				  rpc: {
+					592: "https://evm.astar.network"
+				  },
+				  qrcodeModalOptions: {
+					mobileLinks: [
+					],
+					desktopLinks: [
+					]
+				  }
+			});
+				
+			await connector.enable();
+			web3 = new Web3(connector);
+		}
 		
 		try {
-			  window.ethereum.on('chainChanged', () => {
-			  	  document.location.reload();
-			  });
-			  
-			  window.ethereum.on('accountsChanged', () => {
-			  	  document.location.reload();
-			  });
-			  
-			  await web3.eth.requestAccounts();
-			  
-			  const chainId = await web3.eth.net.getId();
+			 
+			  chainId = await web3.eth.net.getId();
 			  
 			  currentNetwork = getObjects(networks, "chainId", chainId)[0];
 			  
@@ -1127,28 +1255,28 @@ div[data-notify="container"] {
 			} 
 		});
 	}
-	
-	const subdomainComfirm = async (obj) => {
+		
+	const transferComfirm = async (obj) => {
 		var domain = obj.domain;
 		var tokenId = obj.tokenId;
-		var subdomain = obj.subdomain;
+		var to = obj.to;
 		var dialog = bootbox.dialog({
-			title: 'Confirm: ' + subdomain + '.' + domain + '',
-			message: '<p class="text-center">Create sub domain: <strong>' + subdomain + '.' + domain + '</strong><br/>Please wait while we do something... and do not close the browser.<br/><br/> <i class="fas fa-4x fa-spinner fa-spin"></i></p>',
+			title: 'Confirm transfer ' + domain,
+			message: '<p class="text-center">Transfer <strong>' + domain + '</strong> to <strong>' + to + '</strong><br/>Please wait while we do something... and do not close the browser.<br/><br/> <i class="fas fa-4x fa-spinner fa-spin"></i></p>',
 			closeButton: true,
 			className: 'modal-custom',
 			size: 'large',
 			onHide: function(e) {
-				$('.btn-subdomain-comfirm i').hide();
-				$('.btn-subdomain-comfirm').attr('disabled', false);
+				$('.btn-transfer-comfirm i').hide();
+				$('.btn-transfer-comfirm').attr('disabled', false);
 			}
 		});
-		
+
 		web3.eth.sendTransaction({
 				from: currentAddress,
 				to: currentNetwork.contactAddress,
 				value: 0,
-				data: contractFirst.methods.registerSubDomain(currentAddress, tokenId, subdomain).encodeABI()
+				data: contractFirst.methods.safeTransferFrom(currentAddress,to,tokenId).encodeABI()
 			}, (err, transactionId) => {
 			  if  (err) {
 					dialog.init(function(){
@@ -1165,6 +1293,32 @@ div[data-notify="container"] {
 						}, 4000);
 					});
 				 }
+		});
+	}
+	
+	const transferForm = (obj) => {
+		var domain = obj.domain;
+		var tokenId = obj.tokenId;
+		var image = obj.image;
+		var temp = '<div class="warp-setavatar text-center">';
+		temp += '<div class="sendform text-left">';
+		temp += "<div class='form-group nftpreview'><img style='display:none;' src='" + image + "' /> <span class='strong'>" + domain + "</span></div>";
+		//temp += "<div class='form-group'><label>TokenId: </label><input type='text' class='form-control tokenid' value='" + tokenId + "' disabled /></div>";
+		temp += "<div class='form-group'><label>From: </label><input type='text' class='form-control from_address' value='" + currentAddress + "' disabled /></div>";
+		temp += "<div class='form-group'><label>To (Recipient): </label><input type='text' placeholder='Enter wallet address or domain name' class='form-control to_address' value='' /><input type='hidden' class='to_hidden_address' /></div><div class='to_reverse' style='display:none;clear:both;'></div>";
+		//temp += "<div class='form-group'><label>Domain: </label><input type='text' class='form-control domain' value='" + domain + "' disabled /></div>";
+		temp += "<div class='form-group'><button class='btn btn-success btn-lg btn-transfer-comfirm' disabled><i class='fas fa-spinner fa-spin' style='display:none;'></i>Transfer Now</button></div>";
+		temp += '</div>';
+		temp += "<input type='hidden' class='hiddenTransfers' value='" + JSON.stringify(obj) + "' />";
+		var dialog = bootbox.dialog({
+			title: 'Transfer ' + domain,
+			message: '<div class="text-center">' + temp + '</div>',
+			closeButton: true,
+			size: 'extra-large',
+			onEscape: true,
+			onHide: function(e) {
+				myDomains(currentAddress);
+			} 
 		});
 	}
 	
@@ -1579,10 +1733,12 @@ div[data-notify="container"] {
 						isremove = "true";
 					}
 					
-					var temp = "<div class='mydomain-item'><a target='_blank' href='" + image + "'><img style='width: 100%; display:none;' src='' />" + name + "</a>";
+					var temp = "<div class='mydomain-item'><a target='_blank' href='" + image + "'><img style='width: 100%;' src='" + image + "' />" + name + "</a>";
 					temp += "<div style='cursor:pointer; margin-top: 5px;' data-obj='" + JSON.stringify(obj) + "'title='Remove NFT Avatar' class='btn btn-remove-avatar'><i class='fas fa-trash-alt'></i></div>";
 					temp += "<div style='cursor:pointer; margin-top: 5px;' data-remove='" + isremove + "' data-domain='" + name + "' class='btn btn-sm btn-outline-success btn-set-reverse'>" + btnlbl + "</div>";
 					temp += "<div style='cursor:pointer; margin-top: 5px;' data-obj='" + JSON.stringify(obj) + "' class='btn btn-sm btn-outline-primary btn-set-avatar'>Set Avatar</div>";
+					temp += "<div style='cursor:pointer; margin-top: 5px;' data-obj='" + JSON.stringify(obj) + "' class='btn btn-sm btn-outline-success btn-send'>Send Domains</div>";
+					
 					var num = name.match(/\./g).length;
 
 					if (num == 1){
@@ -1891,6 +2047,96 @@ div[data-notify="container"] {
 				
 				subdomainForm(obj);
 		  });
+		  
+		   $(document).on('click', '.btn-send', async function(){
+			
+				var str = $(this).attr('data-obj');
+				if (str == ''){
+					return;
+				}
+				
+				var obj = JSON.parse(str);
+				if(obj == null){
+					return;
+				}
+				
+				transferForm(obj);
+		  });
+		  
+		  $(document).on('click', '.btn-transfer-comfirm', async function(){
+				var str = $('.hiddenTransfers').val();
+				var toAddress = $('.to_hidden_address').val();
+				 
+				if (str == '' || toAddress == ''){
+					alert('Please enter to address');
+					return;
+				}
+				
+				var isAddress = web3.utils.isAddress(toAddress);
+			
+				
+				if (isAddress == false){
+					alert('wallet address not in 0x format');
+					return;
+				}
+				
+				if (toAddress == currentAddress){
+					alert('The sending address must be different from the receiving address');
+					return;
+				}
+				
+				var obj = JSON.parse(str);
+				if(obj == null){
+					return;
+				}
+				obj.to = toAddress;
+				
+				$('.btn-transfer-comfirm i').show();
+		
+				$('.btn-transfer-comfirm').attr('disabled', true);
+				
+				transferComfirm(obj);
+		  });
+		  
+		  $(document).on('change', '.to_address', async function(){
+				var to = $(this).val().trim();
+				if (to == ''){
+					return;
+				}
+				
+				$('.to_hidden_address').val('');
+				
+				$('.btn-transfer-comfirm').attr('disabled', true);
+				
+				var isAddress = web3.utils.isAddress(to);
+				if (isAddress == true){
+					$('.to_hidden_address').val(to);
+					try{
+						var owner = to;
+						var domain = await contractFirst.methods.reverseOf(owner).call();
+						var ethavatar = "<div class='ethavatar' style='width: 35px; float:left; margin: 5px;'>" + multiavatar(domain) + "</div>";
+						var ownerinfo = "<div class='ownerinfo'><div class='strong' style='color: green;'>" + domain + "</div><div class='small'>" +  owner + "</div></div>";
+						var lblowner = ethavatar + ownerinfo;
+						$('.to_reverse').html(lblowner).show();
+					}catch{
+						$('.to_reverse').html(lblowner).hide();
+					}
+				}
+				if (isAddress == false){
+					try{
+						var domain = to;
+						var owner = await contractFirst.methods.getOwner(domain).call();
+						$('.to_hidden_address').val(owner);
+						var ethavatar = "<div class='ethavatar' style='width: 35px; float:left; margin: 5px;'>" + multiavatar(domain) + "</div>";
+						var ownerinfo = "<div class='ownerinfo'><div class='strong' style='color: green;'>" + domain + "</div><div class='small'>" +  owner + "</div></div>";
+						var lblowner = ethavatar + ownerinfo;
+						$('.to_reverse').html(lblowner).show();
+					}
+					catch{}
+				}
+				
+				$('.btn-transfer-comfirm').attr('disabled', false);
+		  })
 		  
 		  myDomains(currentAddress,'');
     };

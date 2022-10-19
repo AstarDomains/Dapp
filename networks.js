@@ -1,32 +1,18 @@
 const networks = [
 		{
-			"chainName":"Telos Testnet ",
-			"chain": "telos",
-			"chainId": 41,
-			"shortName": "telos",
-			"networkId": 41,
-			"nativeCurrency":{"name":"Telos","symbol":"TLOS","decimals":18},
-			"rpcUrls": ["https://testnet.telos.net/evm"],
-			"blockExplorerUrls": ["https://testnet.telos.net/v2/explore/"],
-			"contactAddress": "0xc9e2af6d4EfEa2BDDC2e836F79272b367fAD1712",
-			"tld": ".tlos", 
-			"logo": "/images/cryptologo/telos.png",
-			"baseUri" : "https://app.tlos.domains/api/nftdomains/metadata/",
-			"visible" : true
-		},{
-			"chainName":"Telos Mainnet",
-			"chain": "telos",
-			"chainId": 40,
-			"shortName": "telos",
-			"networkId": 40,
-			"nativeCurrency":{"name":"Telos","symbol":"TLOS","decimals":18},
-			"rpcUrls": ["https://mainnet.telos.net/evm"],
-			"blockExplorerUrls": ["https://www.teloscan.io/"],
-			"contactAddress": "",
+			"chainName":"Astar",
+			"chain": "astar",
+			"chainId": 592,
+			"shortName": "astar",
+			"networkId": 592,
+			"nativeCurrency":{"name":"ASTR","symbol":"ASTR","decimals":18},
+			"rpcUrls": ["https://astar.blastapi.io/78ad4c32-d22e-45b2-b8b4-008291813fa6"],
+			"blockExplorerUrls": ["https://blockscout.com/astar/"],
+			"contactAddress": "0xA1019535E6b364523949EaF45F4B17521c1cb074",
 			"tld": ".astr",
-			"logo": "/images/cryptologo/telos.png",
-			"baseUri" : "https://app.tlos.domains/api/nftdomains/metadata/",
-			"visible" : false
+			"logo": "/images/cryptologo/astar.png",
+			"baseUri" : "https://app.astardomains.network/api/nftdomains/metadata/",
+			"visible" : true
 		}
 	];
 	
@@ -95,3 +81,38 @@ function getObjects(obj, key, val) {
             }
 			return "";
      };
+
+
+$.fn.EnableInsertAtCaret = function() {
+		$(this).on("focus", function() {        
+			$(".insertatcaretactive").removeClass("insertatcaretactive");
+			$(this).addClass("insertatcaretactive");
+		});
+	};
+	 
+	 
+	function InsertAtCaret(myValue) {
+	 
+		return $(".insertatcaretactive").each(function(i) {
+			if (document.selection) {
+				//For browsers like Internet Explorer
+				this.focus();
+				sel = document.selection.createRange();
+				sel.text = myValue;
+				this.focus();
+			} else if (this.selectionStart || this.selectionStart == '0') {
+				//For browsers like Firefox and Webkit based
+				var startPos = this.selectionStart;
+				var endPos = this.selectionEnd;
+				var scrollTop = this.scrollTop;
+				this.value = this.value.substring(0, startPos) + myValue + this.value.substring(endPos, this.value.length);
+				this.focus();
+				this.selectionStart = startPos + myValue.length;
+				this.selectionEnd = startPos + myValue.length;
+				this.scrollTop = scrollTop;
+			} else {
+				this.value += myValue;
+				this.focus();
+			}
+		})
+	}
